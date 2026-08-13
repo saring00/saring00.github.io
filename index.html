@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0a0c0e; }
+  body { font-family: "JetBrains Mono", ui-monospace, monospace; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #60a5fa; text-decoration: none; }
+  a:hover { color: #93c5fd; }
+  ::selection { background: #1e3a5f; color: #e6e9ec; }
+  @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+</style>
+</helmet>
+<div style="background: #0a0c0e; color: #c9ced4; min-height: 100vh; font-size: 15px; line-height: 1.7; letter-spacing: -0.01em;">
+  <div style="position: sticky; top: 0; z-index: 10; background: rgba(10,12,14,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid #191d21;">
+    <div style="max-width: 940px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#top" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 8px; color: #e6e9ec; font-weight: 500;">
+        <span style="color: #60a5fa;">~/</span>sarah-ingram
+        <span style="display: inline-block; width: 7px; height: 15px; background: #60a5fa; animation: blink 1.1s step-end infinite;"></span>
+      </a>
+      <nav style="display: flex; align-items: center; gap: 22px; font-size: 13px; color: #7b838c;">
+        <a href="#projects" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">projects</a>
+        <a href="#writing" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">writing</a>
+        <a href="#about" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">about</a>
+        <a href="#contact" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
+    <section id="top" style="padding: 132px 0 116px; border-bottom: 1px solid #191d21;">
+      <div style="display: flex; align-items: center; gap: 12px; font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 34px;">
+        <span style="width: 24px; height: 1px; background: #2b3238; display: block;"></span>
+        Information Security Analyst
+      </div>
+      <h1 style="margin: 0 0 30px; font-size: 46px; line-height: 1.22; font-weight: 500; color: #f0f2f4; letter-spacing: -0.035em; max-width: 20ch;">Sarah Ingram</h1>
+      <p style="margin: 0 0 40px; font-size: 18px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">I work on AI security and network security — probing how models fail under pressure, and how the networks around them are defended. This is where the side projects and the notes live.</p>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+        <sc-if value="{{ showHireable }}" hint-placeholder-val="{{ true }}">
+        <span style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border: 1px solid #24425f; border-radius: 999px; font-size: 12.5px; color: #93c5fd; background: rgba(96,165,250,0.07);">
+          <span style="width: 6px; height: 6px; border-radius: 999px; background: #60a5fa; display: block;"></span>
+          Open to security engineering roles
+        </span>
+        </sc-if>
+        <a href="mailto:hello@sarahingram.dev" style="padding: 7px 14px; border: 1px solid #24292e; border-radius: 999px; font-size: 12.5px; color: #9aa2ab;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#e6e9ec&quot;}">hello@sarahingram.dev</a>
+        <a href="https://github.com" style="padding: 7px 14px; border: 1px solid #24292e; border-radius: 999px; font-size: 12.5px; color: #9aa2ab;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#e6e9ec&quot;}">github</a>
+      </div>
+    </section>
+
+    <sc-if value="{{ showNow }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 62px 0; border-bottom: 1px solid #191d21; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Now</div>
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 62ch;">
+        <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">01</span><span style="color: #b4bbc2;">Building an eval harness for prompt-injection resistance across three open-weight models.</span></div>
+        <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">02</span><span style="color: #b4bbc2;">Reading the OWASP LLM Top 10 against real incident write-ups and taking notes in public.</span></div>
+        <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">03</span><span style="color: #b4bbc2;">Rebuilding my home lab segmentation — VLANs, a hardened DNS path, full flow logging.</span></div>
+      </div>
+    </section>
+    </sc-if>
+
+    <section id="projects" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 42px;">
+        <h2 style="margin: 0; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Projects</h2>
+        <span style="font-size: 12.5px; color: #5b636b;">{{ projectCount }} shipped · click for detail</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+          <a href="#project" onClick="{{ p.open }}" style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border: 1px solid #191d21; border-radius: 4px; background: #0d1013; color: inherit; transition: border-color 140ms ease, background 140ms ease;" style-hover="{&quot;borderColor&quot;:&quot;#2b3f55&quot;,&quot;background&quot;:&quot;#0f1418&quot;}">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+              <span style="font-size: 15.5px; color: #e6e9ec; font-weight: 500;">{{ p.name }}</span>
+              <span style="font-size: 11.5px; color: #4b535b;">{{ p.year }}</span>
+            </div>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.65; color: #8d959d; text-wrap: pretty;">{{ p.blurb }}</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
+              <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+                <span style="font-size: 11px; color: #6f777f; border: 1px solid #202529; border-radius: 3px; padding: 3px 7px;">{{ t }}</span>
+              </sc-for>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-if value="{{ showWriting }}" hint-placeholder-val="{{ true }}">
+    <section id="writing" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
+      <h2 style="margin: 0 0 36px; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Writing</h2>
+      <div style="display: flex; flex-direction: column;">
+        <sc-for list="{{ posts }}" as="post" hint-placeholder-count="4">
+          <a href="#post" style="display: grid; grid-template-columns: 96px 1fr auto; gap: 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid #191d21; color: inherit;" style-hover="{&quot;background&quot;:&quot;#0d1013&quot;}">
+            <span style="font-size: 12px; color: #4b535b;">{{ post.date }}</span>
+            <span style="font-size: 15px; color: #dfe3e7;">{{ post.title }}</span>
+            <span style="font-size: 11.5px; color: #5b636b;">{{ post.read }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <section id="about" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">About</div>
+      <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">I'm a security analyst working mostly on the AI side of the problem: model abuse, prompt injection, data exfiltration through tool use, and the plumbing that makes any of it possible. Before that, and still most days, network security — segmentation, traffic analysis, detection engineering.</p>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #8d959d; text-wrap: pretty;">Everything here is built in the open. The projects are small and testable on purpose; the notes are what I wish had existed when I started.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: #191d21; border: 1px solid #191d21; border-radius: 4px; margin-top: 6px;">
+          <div style="background: #0d1013; padding: 18px;"><div style="font-size: 11px; color: #5b636b; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Focus</div><div style="font-size: 13.5px; color: #dfe3e7;">AI / LLM security</div></div>
+          <div style="background: #0d1013; padding: 18px;"><div style="font-size: 11px; color: #5b636b; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Also</div><div style="font-size: 13.5px; color: #dfe3e7;">Network defence</div></div>
+          <div style="background: #0d1013; padding: 18px;"><div style="font-size: 11px; color: #5b636b; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Tools</div><div style="font-size: 13.5px; color: #dfe3e7;">Python, Zeek, Suricata</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="padding: 82px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Contact</div>
+      <div style="max-width: 56ch;">
+        <p style="margin: 0 0 26px; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">Happy to talk about AI security work, a finding you want a second pair of eyes on, or a role.</p>
+        <div style="display: flex; flex-direction: column; border: 1px solid #191d21; border-radius: 4px; overflow: hidden;">
+          <a href="mailto:hello@sarahingram.dev" style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 18px; background: #0d1013; color: #dfe3e7; font-size: 14px;" style-hover="{&quot;background&quot;:&quot;#0f1418&quot;}"><span>Email</span><span style="color: #60a5fa;">hello@sarahingram.dev</span></a>
+          <a href="https://github.com" style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 18px; background: #0d1013; color: #dfe3e7; font-size: 14px; border-top: 1px solid #191d21;" style-hover="{&quot;background&quot;:&quot;#0f1418&quot;}"><span>GitHub</span><span style="color: #60a5fa;">@sarahingram</span></a>
+          <a href="https://linkedin.com" style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 18px; background: #0d1013; color: #dfe3e7; font-size: 14px; border-top: 1px solid #191d21;" style-hover="{&quot;background&quot;:&quot;#0f1418&quot;}"><span>LinkedIn</span><span style="color: #60a5fa;">in/sarahingram</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isProject }}">
+  <main style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
+    <div style="padding: 44px 0 0;">
+      <a href="#top" onClick="{{ goHome }}" style="font-size: 13px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← index</a>
+    </div>
+    <header style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;">{{ current.kind }} · {{ current.year }}</div>
+      <h1 style="margin: 0 0 24px; font-size: 38px; line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ current.name }}</h1>
+      <p style="margin: 0 0 30px; font-size: 17.5px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">{{ current.blurb }}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <sc-for list="{{ current.tags }}" as="t" hint-placeholder-count="3">
+          <span style="font-size: 11.5px; color: #6f777f; border: 1px solid #202529; border-radius: 3px; padding: 4px 9px;">{{ t }}</span>
+        </sc-for>
+      </div>
+    </header>
+    <section style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Overview</div>
+      <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
+        <sc-for list="{{ current.body }}" as="para" hint-placeholder-count="3">
+          <p style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">{{ para }}</p>
+        </sc-for>
+      </div>
+    </section>
+    <section style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">What it found</div>
+      <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 1px; background: #191d21; border: 1px solid #191d21; border-radius: 4px;">
+        <sc-for list="{{ current.findings }}" as="f" hint-placeholder-count="3">
+          <div style="background: #0d1013; padding: 16px 18px; display: flex; gap: 14px; align-items: baseline;">
+            <span style="color: #4b535b; font-size: 12px;">›</span>
+            <span style="font-size: 14px; line-height: 1.7; color: #b4bbc2;">{{ f }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Repo</div>
+      <div>
+        <a href="https://github.com" style="display: inline-flex; gap: 10px; padding: 12px 18px; border: 1px solid #24292e; border-radius: 4px; font-size: 13.5px; color: #dfe3e7;" style-hover="{&quot;borderColor&quot;:&quot;#2b3f55&quot;}"><span style="color: #60a5fa;">git clone</span>{{ current.repo }}</a>
+      </div>
+    </section>
+    <div style="padding: 72px 0 0; border-top: 1px solid #191d21; margin-top: 72px;">
+      <a href="#top" onClick="{{ goHome }}" style="font-size: 13.5px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← back to all projects</a>
+    </div>
+  </main>
+  </sc-if>
+
+  <footer style="border-top: 1px solid #191d21;">
+    <div style="max-width: 940px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 12px; color: #4b535b;">
+      <span>© 2026 Sarah Ingram</span>
+      <span>Built in the open · hosted on GitHub Pages</span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showWriting&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showNow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;showHireable&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+const PROJECTS = [
+  {
+    slug: "injection-bench", name: "injection-bench", year: "2026", kind: "Eval harness",
+    blurb: "A reproducible harness for measuring prompt-injection resistance across open-weight models.",
+    tags: ["python", "llm", "evals"],
+    repo: "sarahingram/injection-bench",
+    body: [
+      "Most injection write-ups are anecdotes: one clever payload, one screenshot. injection-bench turns that into something you can re-run — a fixed corpus of indirect and direct injection attempts, a scoring rubric, and per-model reports that survive a version bump.",
+      "The harness treats the model as untrusted and the tool layer as the real attack surface, so every case is scored on what the model did, not what it said it would do."
+    ],
+    findings: [
+      "Indirect injections hidden in retrieved documents succeeded roughly 3× more often than direct ones.",
+      "System-prompt hardening helped least where it is trusted most: tool-calling paths.",
+      "Refusal text is a poor proxy for safety — several models refused, then called the tool anyway."
+    ]
+  },
+  {
+    slug: "toolguard", name: "toolguard", year: "2026", kind: "Library",
+    blurb: "A small allow-list proxy that sits between an LLM agent and the tools it is permitted to call.",
+    tags: ["python", "agents", "authz"],
+    repo: "sarahingram/toolguard",
+    body: [
+      "Agents fail safely only when something other than the model decides what is allowed. toolguard is a thin policy layer: declarative allow-lists, argument schemas, and per-tool rate and scope limits, enforced outside the prompt.",
+      "It logs every decision in a format you can hand to a detection team."
+    ],
+    findings: [
+      "Argument-level validation blocked most exfiltration attempts that survived prompt-level defences.",
+      "Deny-by-default cost less usability than expected: 4 rules covered 90% of legitimate calls."
+    ]
+  },
+  {
+    slug: "flowmap", name: "flowmap", year: "2025", kind: "Network tooling",
+    blurb: "Turns Zeek conn logs into a readable picture of what actually talks to what on a segmented network.",
+    tags: ["zeek", "python", "netsec"],
+    repo: "sarahingram/flowmap",
+    body: [
+      "Segmentation looks correct in the config and wrong in the traffic. flowmap reads conn logs and renders observed adjacency between segments, so intent and reality can be compared directly.",
+      "Built for my home lab, then used to audit a small office network."
+    ],
+    findings: [
+      "Two VLANs I believed were isolated shared a management path through a printer.",
+      "Most cross-segment traffic came from four hosts — visibility beat new rules."
+    ]
+  },
+  {
+    slug: "dns-canary", name: "dns-canary", year: "2025", kind: "Detection",
+    blurb: "Lightweight detection for DNS-tunnelled exfiltration, tuned for low false positives on small networks.",
+    tags: ["suricata", "detection", "dns"],
+    repo: "sarahingram/dns-canary",
+    body: [
+      "Entropy alone drowns you in alerts. dns-canary combines query-length distribution, subdomain cardinality per parent, and timing regularity, then only alarms when several signals agree.",
+      "Ships with a replayable pcap set so the rules can be tested before they are trusted."
+    ],
+    findings: [
+      "Timing regularity was the single strongest signal in the replay set.",
+      "Alert volume dropped by an order of magnitude versus an entropy-only rule."
+    ]
+  },
+  {
+    slug: "model-sbom", name: "model-sbom", year: "2025", kind: "Supply chain",
+    blurb: "Generates a dependency and provenance manifest for a deployed model, weights and all.",
+    tags: ["supply-chain", "python"],
+    repo: "sarahingram/model-sbom",
+    body: [
+      "A model in production is a supply chain: base weights, adapters, tokenizer, prompt templates, retrieval corpus. model-sbom records the hashes and origins of each so a compromise can be scoped.",
+      "Output is plain JSON, designed to be diffed between deploys."
+    ],
+    findings: [
+      "Adapters and prompt templates changed far more often than anyone tracked.",
+      "Hashing the retrieval corpus caught a silent document swap in testing."
+    ]
+  },
+  {
+    slug: "lab-notes", name: "lab-notes", year: "2024", kind: "Home lab",
+    blurb: "The build log for a segmented home lab: VLANs, hardened DNS, and full flow logging on cheap hardware.",
+    tags: ["homelab", "vlan", "logging"],
+    repo: "sarahingram/lab-notes",
+    body: [
+      "Everything I test lives here first. The repo documents the network as built — configs, diagrams, and the mistakes that took longest to find.",
+      "Written so someone can copy it on a budget."
+    ],
+    findings: [
+      "Full flow logging on the whole lab cost less storage than one week of endpoint logs.",
+      "Half the value was naming things consistently."
+    ]
+  }
+];
+
+const POSTS = [
+  { date: "2026-07-14", title: "Prompt injection is an authorization problem", read: "8 min" },
+  { date: "2026-05-02", title: "Reading the OWASP LLM Top 10 against real incidents", read: "12 min" },
+  { date: "2026-02-19", title: "What a model SBOM should actually contain", read: "6 min" },
+  { date: "2025-11-08", title: "Your segmentation is a hypothesis. Test it.", read: "9 min" }
+];
+
+class Component extends DCLogic {
+  state = { slug: null };
+
+  componentDidMount() {
+    this._sync = () => {
+      const h = (location.hash || "").replace(/^#\/?/, "");
+      const m = h.startsWith("p/") ? h.slice(2) : null;
+      if (m !== this.state.slug) this.setState({ slug: m });
+    };
+    this._sync();
+    window.addEventListener("hashchange", this._sync);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this._sync);
+  }
+
+  open(slug) {
+    return (e) => {
+      if (e) e.preventDefault();
+      this.setState({ slug });
+      if (location.hash !== "#/p/" + slug) history.replaceState(null, "", "#/p/" + slug);
+      window.scrollTo(0, 0);
+    };
+  }
+
+  renderVals() {
+    const current = PROJECTS.find(p => p.slug === this.state.slug) || null;
+    return {
+      isHome: !current,
+      isProject: !!current,
+      current: current || PROJECTS[0],
+      projects: PROJECTS.map(p => Object.assign({}, p, { open: this.open(p.slug) })),
+      projectCount: PROJECTS.length,
+      posts: POSTS,
+      showWriting: this.props.showWriting ?? true,
+      showNow: this.props.showNow ?? true,
+      showHireable: this.props.showHireable ?? true,
+      goHome: (e) => { if (e) e.preventDefault(); this.setState({ slug: null }); history.replaceState(null, "", "#"); window.scrollTo(0, 0); }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
