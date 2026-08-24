@@ -96,16 +96,16 @@
 
     <sc-if value="{{ showWriting }}" hint-placeholder-val="{{ true }}">
     <section id="writing" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
-      <h2 style="margin: 0 0 36px; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Writing coming soon</h2>
-      <!-- <div style="display: flex; flex-direction: column;">
+      <h2 style="margin: 0 0 36px; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Writing</h2>
+      <div style="display: flex; flex-direction: column;">
         <sc-for list="{{ posts }}" as="post" hint-placeholder-count="4">
-          <a href="#post" style="display: grid; grid-template-columns: 96px 1fr auto; gap: 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid #191d21; color: inherit;" style-hover="{&quot;background&quot;:&quot;#0d1013&quot;}">
+          <a href="#post" onClick="{{ post.open }}" style="display: grid; grid-template-columns: 96px 1fr auto; gap: 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid #191d21; color: inherit;" style-hover="{&quot;background&quot;:&quot;#0d1013&quot;}">
             <span style="font-size: 12px; color: #4b535b;">{{ post.date }}</span>
             <span style="font-size: 15px; color: #dfe3e7;">{{ post.title }}</span>
             <span style="font-size: 11.5px; color: #5b636b;">{{ post.read }}</span>
           </a>
         </sc-for>
-      </div> -->
+      </div>
     </section>
     </sc-if>
 
@@ -179,6 +179,28 @@
     </section>
     <div style="padding: 72px 0 0; border-top: 1px solid #191d21; margin-top: 72px;">
       <a href="#top" onClick="{{ goHome }}" style="font-size: 13.5px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← back to all projects</a>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isPost }}">
+  <main style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
+    <div style="padding: 44px 0 0;">
+      <a href="#top" onClick="{{ goHome }}" style="font-size: 13px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← index</a>
+    </div>
+    <header style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
+      <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;">{{ currentPost.date }} · {{ currentPost.read }}</div>
+      <h1 style="margin: 0; font-size: 38px; line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ currentPost.title }}</h1>
+    </header>
+    <section style="padding: 56px 0 0;">
+      <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
+        <sc-for list="{{ currentPost.body }}" as="para" hint-placeholder-count="3">
+          <p style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">{{ para }}</p>
+        </sc-for>
+      </div>
+    </section>
+    <div style="padding: 72px 0 0; border-top: 1px solid #191d21; margin-top: 72px;">
+      <a href="#top" onClick="{{ goHome }}" style="font-size: 13.5px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← back to all writing</a>
     </div>
   </main>
   </sc-if>
@@ -341,10 +363,19 @@ const PROJECTS = [
 ];
 
 const POSTS = [
-  { date: "2026-07-14", title: "Prompt injection is an authorization problem", read: "8 min" },
-  { date: "2026-05-02", title: "Reading the OWASP LLM Top 10 against real incidents", read: "12 min" },
-  { date: "2026-02-19", title: "What a model SBOM should actually contain", read: "6 min" },
-  { date: "2025-11-08", title: "Your segmentation is a hypothesis. Test it.", read: "9 min" }
+  {
+    slug: "hello-world-locked-gate",
+    date: "2026-08-24",
+    title: "Hello World: Staring at the Locked Gate",
+    read: "5 min",
+    body: [
+      "Hello World...",
+      "Bit of a cheesy title but thought there was no better way to start my first portfolio site – it’s a rite of passage after all. My name is Sarah and I’m an Information Security Analyst (Associate Specialist) working in Joburg, South Africa. I’ve decided to challenge myself by putting my thoughts and ideas out there to see what sticks – and what doesn’t.",
+      "I’ve wanted to be in cyber since I was 15 years old. It is what brought me to IT as a career path – before which I never even considered that tech was an option for me. 11 years later and I’m now 2.5 years into working in the cyber field and it’s been quite the rollercoaster already. I graduated from university and entered the working world just before the AI boom impacted graduate tech jobs (and tech in general). So as far as tech goes, I’m in a bit of an interesting position. I wasn’t born when the digital revolution kicked off. I was 2 when the Dot Com Bubble came and burst, 10 when the Cloud became mainstream. I was the generation of unsupervised Internet access before we truly understood the dangers of the Internet. For the majority of my life, I witnessed the changes in tech without ever understanding the actual implications of what I was witnessing. And then came AI…",
+      "I was late enough to the party to learn about AI in university. I made sure my thesis intersected cybersecurity and AI so that I could shift with the changing field (I also included IoT in case things swung the other way). I signed my contract and barely a month into the job, large firms started their AI-blamed mass layoffs. A year into the job and global tech firms followed – all blaming AI efficiencies leaving less space for the inefficient human workforce. I slipped in right before the gate closed behind me and I have found myself spending a lot of time staring at that locked gate.",
+      "So where am I going with this? Well, the cyber I fell in love with at 15 is different from the cyber today. That I don’t mind, it’s great being part of an industry that moves quickly and changes from one day to the next. What I now need to navigate is how does a (relatively) new cyber professional succeed in the AI revolutionised world? If AI can be hired to do your pen testing, what happens to the pen tester? If Agents can be used for writing code, monitoring infrastructures, detecting and responding to cyber incidents, what happens to the girl who was so excited by this world that every decision she made from 15 years old was about getting her there? This might be slightly existential for a portfolio site, but this is the reason I’m here. My goal for this portfolio is to learn, test out new ideas and concepts, and see where cyber is heading in the new realm of AI security."
+    ]
+  }
 ];
 
 const CV = {
@@ -394,14 +425,15 @@ const CV = {
 };
 
 class Component extends DCLogic {
-  state = { slug: null, cv: false };
+  state = { slug: null, postSlug: null, cv: false };
 
   componentDidMount() {
     this._sync = () => {
       const h = (location.hash || "").replace(/^#\/?/, "");
       const m = h.startsWith("p/") ? h.slice(2) : null;
+      const w = h.startsWith("w/") ? h.slice(2) : null;
       const cv = h === "cv";
-      if (m !== this.state.slug || cv !== this.state.cv) this.setState({ slug: m, cv });
+      if (m !== this.state.slug || w !== this.state.postSlug || cv !== this.state.cv) this.setState({ slug: m, postSlug: w, cv });
     };
     this._sync();
     window.addEventListener("hashchange", this._sync);
@@ -414,36 +446,48 @@ class Component extends DCLogic {
   open(slug) {
     return (e) => {
       if (e) e.preventDefault();
-      this.setState({ slug, cv: false });
+      this.setState({ slug, postSlug: null, cv: false });
       if (location.hash !== "#/p/" + slug) history.replaceState(null, "", "#/p/" + slug);
+      window.scrollTo(0, 0);
+    };
+  }
+
+  openPost(slug) {
+    return (e) => {
+      if (e) e.preventDefault();
+      this.setState({ slug: null, postSlug: slug, cv: false });
+      if (location.hash !== "#/w/" + slug) history.replaceState(null, "", "#/w/" + slug);
       window.scrollTo(0, 0);
     };
   }
 
   goToCV(e) {
     if (e) e.preventDefault();
-    this.setState({ slug: null, cv: true });
+    this.setState({ slug: null, postSlug: null, cv: true });
     if (location.hash !== "#/cv") history.replaceState(null, "", "#/cv");
     window.scrollTo(0, 0);
   }
 
   renderVals() {
     const current = PROJECTS.find(p => p.slug === this.state.slug) || null;
-    const cvOpen = !current && this.state.cv;
+    const currentPost = POSTS.find(p => p.slug === this.state.postSlug) || null;
+    const cvOpen = !current && !currentPost && this.state.cv;
     return {
-      isHome: !current && !cvOpen,
+      isHome: !current && !currentPost && !cvOpen,
       isProject: !!current,
+      isPost: !!currentPost,
       isCV: cvOpen,
       current: current || PROJECTS[0],
+      currentPost: currentPost || POSTS[0],
       cv: CV,
       projects: PROJECTS.map(p => Object.assign({}, p, { open: this.open(p.slug) })),
       projectCount: PROJECTS.length,
-      posts: POSTS,
+      posts: POSTS.map(p => Object.assign({}, p, { open: this.openPost(p.slug) })),
       showWriting: this.props.showWriting ?? true,
       showNow: this.props.showNow ?? true,
       showHireable: this.props.showHireable ?? true,
       goToCV: (e) => this.goToCV(e),
-      goHome: (e) => { if (e) e.preventDefault(); this.setState({ slug: null, cv: false }); history.replaceState(null, "", "#"); window.scrollTo(0, 0); }
+      goHome: (e) => { if (e) e.preventDefault(); this.setState({ slug: null, postSlug: null, cv: false }); history.replaceState(null, "", "#"); window.scrollTo(0, 0); }
     };
   }
 }
