@@ -13,39 +13,45 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
 <style>
   html, body { margin: 0; padding: 0; background: #0a0c0e; }
-  html { overflow-x: hidden; }
-  body { font-family: "JetBrains Mono", ui-monospace, monospace; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { font-family: "JetBrains Mono", ui-monospace, monospace; -webkit-font-smoothing: antialiased; }
   * { box-sizing: border-box; }
-  img, svg { max-width: 100%; height: auto; }
   a { color: #60a5fa; text-decoration: none; }
   a:hover { color: #93c5fd; }
   ::selection { background: #1e3a5f; color: #e6e9ec; }
   @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
 
-  /* Responsive layout: structural changes that clamp() alone can't express */
-  .dc-bar { flex-wrap: wrap; row-gap: 10px; }
-  @media (max-width: 640px) {
-    .dc-nav { gap: 12px !important; font-size: 12px !important; }
+  @media (max-width: 720px) {
+    .main-wrap { padding-left: 20px !important; padding-right: 20px !important; padding-bottom: 90px !important; }
+    .hdr-row { padding: 14px 20px !important; gap: 14px !important; }
+    .hdr-nav { gap: 14px !important; font-size: 12px !important; }
+    .sec-hero { padding: 76px 0 60px !important; }
+    .h1-hero { font-size: 34px !important; }
+    .p-hero { font-size: 16px !important; }
+    .sec-pad-lg { padding-top: 54px !important; padding-bottom: 40px !important; }
+    .h1-page { font-size: 28px !important; }
+    .p-page { font-size: 15.5px !important; }
+    .grid-side { grid-template-columns: 1fr !important; gap: 10px !important; }
+    .grid-side > :first-child { padding-top: 0 !important; margin-bottom: 2px !important; }
   }
-  @media (max-width: 420px) {
-    .dc-nav { gap: 8px !important; font-size: 11px !important; }
-  }
-  @media (max-width: 700px) {
-    .responsive-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-  }
-  @media (max-width: 520px) {
-    .dc-writing-row { grid-template-columns: 1fr !important; gap: 4px !important; }
+
+  @media (max-width: 480px) {
+    .hdr-row { flex-wrap: wrap !important; row-gap: 10px !important; }
+    .hdr-nav { gap: 10px !important; font-size: 11px !important; }
+    .h1-hero { font-size: 27px !important; }
+    .sec-hero { padding: 60px 0 48px !important; }
+    .post-row { gap: 10px !important; }
+    .h1-page { font-size: 24px !important; }
   }
 </style>
 </helmet>
 <div style="background: #0a0c0e; color: #c9ced4; min-height: 100vh; font-size: 15px; line-height: 1.7; letter-spacing: -0.01em;">
   <div style="position: sticky; top: 0; z-index: 10; background: rgba(10,12,14,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid #191d21;">
-    <div class="dc-bar" style="max-width: 940px; margin: 0 auto; padding: clamp(14px, 3vw, 18px) clamp(16px, 5vw, 32px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+    <div class="hdr-row" style="max-width: 940px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
       <a href="#top" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 8px; color: #e6e9ec; font-weight: 500;">
         <span style="color: #60a5fa;">~/</span>sarah-ingram
         <span style="display: inline-block; width: 7px; height: 15px; background: #60a5fa; animation: blink 1.1s step-end infinite;"></span>
       </a>
-      <nav class="dc-nav" style="display: flex; align-items: center; gap: 22px; font-size: 13px; color: #7b838c;">
+      <nav class="hdr-nav" style="display: flex; align-items: center; gap: 22px; font-size: 13px; color: #7b838c;">
         <a href="#projects" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">projects</a>
         <a href="#writing" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">writing</a>
         <a href="#about" style="color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">about</a>
@@ -55,15 +61,15 @@
   </div>
 
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-  <main style="max-width: 940px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 32px) clamp(72px, 14vw, 140px);">
-    <section id="top" style="padding: clamp(64px, 14vw, 132px) 0 clamp(56px, 10vw, 116px); border-bottom: 1px solid #191d21;">
+  <main class="main-wrap" style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
+    <section id="top" class="sec-hero" style="padding: 132px 0 116px; border-bottom: 1px solid #191d21;">
       <div style="display: flex; align-items: center; gap: 12px; font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 34px;">
         <span style="width: 24px; height: 1px; background: #2b3238; display: block;"></span>
         Information Security Analyst
       </div>
-      <h1 style="margin: 0 0 30px; font-size: clamp(28px, 4vw + 18px, 46px); line-height: 1.22; font-weight: 500; color: #f0f2f4; letter-spacing: -0.035em; max-width: 20ch;">Sarah Ingram</h1>
+      <h1 class="h1-hero" style="margin: 0 0 30px; font-size: 46px; line-height: 1.22; font-weight: 500; color: #f0f2f4; letter-spacing: -0.035em; max-width: 20ch;">Sarah Ingram</h1>
       <!-- <p style="margin: 0 0 40px; font-size: 18px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">I work on AI security and network security — probing how models fail under pressure, and how the networks around them are defended. This is where the side projects and the notes live.</p> -->
-      <p style="margin: 0 0 40px; font-size: 18px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">I work in AI security, focusing on fast deployment of AI enabled systems to aid security detection and prevention. Ensuring protection against both human and AI threats. </p> 
+      <p class="p-hero" style="margin: 0 0 40px; font-size: 18px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">I work in AI security, focusing on fast deployment of AI enabled systems to aid security detection and prevention. Ensuring protection against both human and AI threats. </p>
       
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
         <sc-if value="{{ showHireable }}" hint-placeholder-val="{{ true }}">
@@ -78,7 +84,7 @@
     </section>
 
     <sc-if value="{{ showNow }}" hint-placeholder-val="{{ true }}">
-    <section class="responsive-grid" style="padding: 62px 0; border-bottom: 1px solid #191d21; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 62px 0; border-bottom: 1px solid #191d21; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Now</div>
       <div style="display: flex; flex-direction: column; gap: 14px; max-width: 62ch;">
         <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">01</span><span style="color: #b4bbc2;"><b>Project:</b> Redesigning my thesis, 3 years later and into the agentic age.</span></div>
@@ -88,7 +94,7 @@
     </section>
     </sc-if>
 
-    <section id="projects" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
+    <section id="projects" class="sec-pad-lg" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 42px;">
         <h2 style="margin: 0; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Projects coming soon</h2>
         <!-- <span style="font-size: 12.5px; color: #5b636b;">{{ projectCount }} shipped · click for detail</span> -->
@@ -112,11 +118,11 @@
     </section>
 
     <sc-if value="{{ showWriting }}" hint-placeholder-val="{{ true }}">
-    <section id="writing" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
+    <section id="writing" class="sec-pad-lg" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
       <h2 style="margin: 0 0 36px; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Writing</h2>
       <div style="display: flex; flex-direction: column;">
         <sc-for list="{{ posts }}" as="post" hint-placeholder-count="4">
-          <a href="#post" onClick="{{ post.open }}" class="dc-writing-row" style="display: grid; grid-template-columns: 96px 1fr auto; gap: 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid #191d21; color: inherit;" style-hover="{&quot;background&quot;:&quot;#0d1013&quot;}">
+          <a href="#post" onClick="{{ post.open }}" class="post-row" style="display: grid; grid-template-columns: 96px 1fr auto; gap: 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid #191d21; color: inherit;" style-hover="{&quot;background&quot;:&quot;#0d1013&quot;}">
             <span style="font-size: 12px; color: #4b535b;">{{ post.date }}</span>
             <span style="font-size: 15px; color: #dfe3e7;">{{ post.title }}</span>
             <span style="font-size: 11.5px; color: #5b636b;">{{ post.read }}</span>
@@ -126,7 +132,7 @@
     </section>
     </sc-if>
 
-    <section id="about" class="responsive-grid" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side sec-pad-lg" id="about" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">About</div>
       <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
         <p style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">I'm a security analyst working mostly on the AI side of the problem: how can we use AI safely to defend against a new age of threats. I also analyse AI threats and vulnerabilities to inform AI security strategy.</p>
@@ -140,7 +146,7 @@
       </div>
     </section>
 
-    <section id="contact" class="responsive-grid" style="padding: 82px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side sec-pad-lg" id="contact" style="padding: 82px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Contact</div>
       <div style="max-width: 56ch;">
         <p style="margin: 0 0 26px; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">Happy to talk anything cyber or AI</p>
@@ -155,21 +161,21 @@
   </sc-if>
 
   <sc-if value="{{ isProject }}">
-  <main style="max-width: 940px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 32px) clamp(72px, 14vw, 140px);">
+  <main class="main-wrap" style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
     <div style="padding: 44px 0 0;">
       <a href="#top" onClick="{{ goHome }}" style="font-size: 13px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← index</a>
     </div>
-    <header style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
+    <header class="sec-pad-lg" style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;">{{ current.kind }} · {{ current.year }}</div>
-      <h1 style="margin: 0 0 24px; font-size: clamp(24px, 3.5vw + 16px, 38px); line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ current.name }}</h1>
-      <p style="margin: 0 0 30px; font-size: 17.5px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">{{ current.blurb }}</p>
+      <h1 class="h1-page" style="margin: 0 0 24px; font-size: 38px; line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ current.name }}</h1>
+      <p class="p-page" style="margin: 0 0 30px; font-size: 17.5px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">{{ current.blurb }}</p>
       <div style="display: flex; flex-wrap: wrap; gap: 8px;">
         <sc-for list="{{ current.tags }}" as="t" hint-placeholder-count="3">
           <span style="font-size: 11.5px; color: #6f777f; border: 1px solid #202529; border-radius: 3px; padding: 4px 9px;">{{ t }}</span>
         </sc-for>
       </div>
     </header>
-    <section class="responsive-grid" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Overview</div>
       <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
         <sc-for list="{{ current.body }}" as="para" hint-placeholder-count="3">
@@ -177,7 +183,7 @@
         </sc-for>
       </div>
     </section>
-    <section class="responsive-grid" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">What it found</div>
       <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 1px; background: #191d21; border: 1px solid #191d21; border-radius: 4px;">
         <sc-for list="{{ current.findings }}" as="f" hint-placeholder-count="3">
@@ -188,7 +194,7 @@
         </sc-for>
       </div>
     </section>
-    <section class="responsive-grid" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Repo</div>
       <div>
         <a href="https://github.com" style="display: inline-flex; gap: 10px; padding: 12px 18px; border: 1px solid #24292e; border-radius: 4px; font-size: 13.5px; color: #dfe3e7;" style-hover="{&quot;borderColor&quot;:&quot;#2b3f55&quot;}"><span style="color: #60a5fa;">git clone</span>{{ current.repo }}</a>
@@ -201,14 +207,29 @@
   </sc-if>
 
   <sc-if value="{{ isPost }}">
-  <main style="max-width: 940px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 32px) clamp(72px, 14vw, 140px);">
+  <main class="main-wrap" style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
     <div style="padding: 44px 0 0;">
       <a href="#top" onClick="{{ goHome }}" style="font-size: 13px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← index</a>
     </div>
-    <header style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
+    <header class="sec-pad-lg" style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;">{{ currentPost.date }} · {{ currentPost.read }}</div>
-      <h1 style="margin: 0; font-size: clamp(24px, 3.5vw + 16px, 38px); line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ currentPost.title }}</h1>
+      <h1 class="h1-page" style="margin: 0; font-size: 38px; line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ currentPost.title }}</h1>
     </header>
+    <sc-if value="{{ currentPost.image }}">
+    <div style="padding: 56px 0 0;">
+      <div onClick="{{ openImage }}" style="cursor: zoom-in; display: block;" style-hover="{&quot;opacity&quot;:&quot;0.9&quot;}">
+        <img src="{{ currentPost.image }}" alt="{{ currentPost.imageAlt }}" style="display: block; max-width: 100%; height: auto; border: 1px solid #191d21; border-radius: 4px;" />
+      </div>
+      <div style="margin-top: 10px; font-size: 11.5px; color: #5b636b;">Click image to enlarge</div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ imageOpen }}">
+    <div onClick="{{ closeImage }}" style="position: fixed; inset: 0; z-index: 100; background: rgba(6,7,9,0.94); display: flex; align-items: center; justify-content: center; padding: 32px; cursor: zoom-out;">
+      <img src="{{ currentPost.image }}" alt="{{ currentPost.imageAlt }}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,0.55);" />
+      <a href="{{ currentPost.image }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="position: fixed; top: 26px; right: 76px; padding: 9px 16px; border: 1px solid #2b3238; border-radius: 999px; background: rgba(13,16,19,0.9); color: #9aa2ab; font-size: 12.5px;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#e6e9ec&quot;}">Open full image ↗</a>
+      <button onClick="{{ closeImage }}" style="position: fixed; top: 22px; right: 26px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid #2b3238; background: rgba(13,16,19,0.9); color: #dfe3e7; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#f0f2f4&quot;}">×</button>
+    </div>
+    </sc-if>
     <section style="padding: 56px 0 0;">
       <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
         <sc-for list="{{ currentPost.body }}" as="para" hint-placeholder-count="3">
@@ -223,17 +244,17 @@
   </sc-if>
 
   <sc-if value="{{ isCV }}">
-  <main style="max-width: 940px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 32px) clamp(72px, 14vw, 140px);">
+  <main class="main-wrap" style="max-width: 940px; margin: 0 auto; padding: 0 32px 140px;">
     <div style="padding: 44px 0 0;">
       <a href="#top" onClick="{{ goHome }}" style="font-size: 13px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← index</a>
     </div>
-    <header style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
+    <header class="sec-pad-lg" style="padding: 56px 0 44px; border-bottom: 1px solid #191d21;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;">Curriculum Vitae</div>
-      <h1 style="margin: 0 0 24px; font-size: clamp(24px, 3.5vw + 16px, 38px); line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ cv.name }}</h1>
-      <p style="margin: 0; font-size: 17.5px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">{{ cv.summary }}</p>
+      <h1 class="h1-page" style="margin: 0 0 24px; font-size: 38px; line-height: 1.24; font-weight: 500; color: #f0f2f4; letter-spacing: -0.03em;">{{ cv.name }}</h1>
+      <p class="p-page" style="margin: 0; font-size: 17.5px; line-height: 1.72; color: #9aa2ab; max-width: 58ch; text-wrap: pretty;">{{ cv.summary }}</p>
     </header>
 
-    <section class="responsive-grid" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Experience</div>
       <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 34px;">
         <sc-for list="{{ cv.experience }}" as="job" hint-placeholder-count="3">
@@ -255,7 +276,7 @@
       </div>
     </section>
 
-    <section class="responsive-grid" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Skills</div>
       <div style="max-width: 62ch; display: flex; flex-wrap: wrap; gap: 8px;">
         <sc-for list="{{ cv.skills }}" as="s" hint-placeholder-count="6">
@@ -264,7 +285,7 @@
       </div>
     </section>
 
-    <section class="responsive-grid" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Education</div>
       <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
         <sc-for list="{{ cv.education }}" as="ed" hint-placeholder-count="1">
@@ -283,7 +304,7 @@
   </sc-if>
 
   <footer style="border-top: 1px solid #191d21;">
-    <div style="max-width: 940px; margin: 0 auto; padding: 28px clamp(16px, 5vw, 32px); display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; font-size: 12px; color: #4b535b;">
+    <div style="max-width: 940px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; font-size: 12px; color: #4b535b;">
       <span style="display: inline-block; width: 7px; height: 15px; background: #60a5fa; animation: blink 1.1s step-end infinite;"></span>
     </div>
   </footer>
@@ -380,6 +401,22 @@ const PROJECTS = [
 ];
 
 const POSTS = [
+   {
+    slug: "converging-evolution",
+    date: "2026-09-10",
+    title: "Converging Evolution of the Big AI Houses",
+    read: "10 min",
+    image: "./images/conv-evolution.png",
+    imageAlt: "Mind map connecting AI houses, capabilities, and security concepts",
+    body: [
+      "AI is changing quickly, and keeping up has become both increasingly more difficult and important. To get myself up to date, and to build the habits I need to stay there, I gave myself a 3-week challenge. Every day, multiple times a day, I checked the latest articles on AI, AI security vulnerabilities, and, of course, AI-related hacks. I used a mix of news sites, article compilers like Hacker News, and research sources like Google Scholar so that I was not only reading one kind of view. The sources ranged from opinion pieces to peer-reviewed research, and from objective reporting to portfolio-style reflections like this one. What started as a practical catch-up exercise quickly turned into more of a rabbit hole, which tends to happen with a fast-paced field such as AI.",
+      "I had to check each source at least twice a day, select around 5–10 articles that stood out to me, and critically engage with what each article was saying. After a few days, I realised this was a lot of articles, so I started using a mind map to remember the important concepts and connect related ideas. That is where the rabbit hole really started. As I mapped out what I was reading, I kept thinking back to Matric Biology. When AI first became mainstream, the competition felt centred around power and outperforming the nearest competitor. The interesting part was that each AI house competed in its own way. Copilot was originally the coding tool of choice; ChatGPT was first to mass market and succeeded on natural language and chat functionality; DeepMind succeeded on research. But as the hype built around AI and the latest models, the market shifted. The best model became the one that outperformed yesterday’s best model, even if it was only by a small percentage. Users waited for the latest release and quickly jumped ship when a new model scored better than the last. The market has now settled a bit. Model releases are slower, and new releases seem to have less market impact than they did during the original frenzy. Users now tend to have a preferred vendor and stick with it through model updates. But that frenzy still shaped development conventions. AI houses now seem to be copying each other, trying to provide the same functionality as competitors and marking their work against the same benchmarks to win more market share. In Biology, this is called convergent evolution: different species with little in common start looking or behaving similarly because those traits provide an evolutionary advantage. It is why birds, bats, and insects can fly, and why dolphins and bats use sonar. External pressure pushed different species towards similar survival traits. In AI, the external pressure is a market full of increasingly picky users looking for specific capabilities, and that pressure is making models look and behave more alike.",
+      "This convergent evolution is not necessarily a bad thing; it has produced real advances in AI performance and adoption. But from a security perspective, it creates an interesting problem. AI security can no longer be treated as specific to one tool or one vendor. In a landscape where each AI model is shaped by its competitors, the same capabilities, design choices, and security weaknesses can start appearing across platforms. That pattern is what I started seeing in my mind map.",
+      "Looking at my mind map, I split the concepts between GenAI, AI Agents, and Agentic AI. AI Agents are not equivalent to Agentic AI, despite what AI companies seem to suggest. True Agentic AI is hard to come by, which is why there is very little of it in my mind map. I was lucky enough that this 3-week period overlapped with the JadePuffer hack, so Agentic AI is represented in the mind map. I then grouped the ideas into three categories: general cyber threats, to bring AI back to cyber first principles; concepts, meaning the ideas, models, and assumptions each topic introduces; and examples of hacks, meaning the clearest examples of exploitation I could find during the 3-week period. What stands out is that the mind map is more of a web than a hierarchy. Many concepts overlap, and very few have fewer than three connections linking hacks, concepts, and AI houses together.",
+      "Cowork is a useful example of this convergent evolution point. Cowork was introduced for Claude preview in January 2026, bringing widespread use of Skills with it. Skills introduced a new threat: malicious Skills. Users could upload these Skills to help with tasks, but a malicious Skill could instead exfiltrate user data, take over devices, or perform other concerning actions. Threatened by this addition to a competitor’s quiver, Microsoft partnered with Anthropic to bring Claude Cowork to Copilot, announced in March 2026. Microsoft-based enterprises cried for joy; their security departments laughed nervously. By June 2026, Cowork and its inherent security issues had arrived in Copilot. The concern is that there still do not appear to be the usual Microsoft enterprise-level restrictions on Skill uploads, or fixes that meaningfully limit the exposure Cowork introduced.",
+      "For security, this means that securing AI is not just about the tool; it is about what is being normalised across the ecosystem. If vendors are converging on the same capabilities, then security teams need to look for the shared patterns underneath those capabilities: how tools access data, how users extend them, how agents take action, how third-party components are trusted, and how quickly inherited weaknesses can move from one platform to another. My mind map started as a way to keep up with the pace of AI change, but it ended up showing something more useful. AI security cannot be treated as a vendor-by-vendor checklist. It needs to be grounded in cyber first principles, mapped across converging AI behaviours, and updated continuously as the market copies, absorbs, and re-packages the same ideas. The challenge is not only to keep up with AI, but to recognise when different tools are becoming similar enough that one security lesson should apply to all of them."
+    ]
+  },
   {
     slug: "hello-world-locked-gate",
     date: "2026-08-24",
@@ -442,7 +479,7 @@ const CV = {
 };
 
 class Component extends DCLogic {
-  state = { slug: null, postSlug: null, cv: false };
+  state = { slug: null, postSlug: null, cv: false, imageOpen: false };
 
   componentDidMount() {
     this._sync = () => {
@@ -454,10 +491,16 @@ class Component extends DCLogic {
     };
     this._sync();
     window.addEventListener("hashchange", this._sync);
+
+    this._onKeydown = (e) => {
+      if (e.key === "Escape" && this.state.imageOpen) this.setState({ imageOpen: false });
+    };
+    window.addEventListener("keydown", this._onKeydown);
   }
 
   componentWillUnmount() {
     window.removeEventListener("hashchange", this._sync);
+    window.removeEventListener("keydown", this._onKeydown);
   }
 
   open(slug) {
@@ -485,6 +528,16 @@ class Component extends DCLogic {
     window.scrollTo(0, 0);
   }
 
+  openImage(e) {
+    if (e) e.preventDefault();
+    this.setState({ imageOpen: true });
+  }
+
+  closeImage(e) {
+    if (e) e.preventDefault();
+    this.setState({ imageOpen: false });
+  }
+
   renderVals() {
     const current = PROJECTS.find(p => p.slug === this.state.slug) || null;
     const currentPost = POSTS.find(p => p.slug === this.state.postSlug) || null;
@@ -504,7 +557,11 @@ class Component extends DCLogic {
       showNow: this.props.showNow ?? true,
       showHireable: this.props.showHireable ?? true,
       goToCV: (e) => this.goToCV(e),
-      goHome: (e) => { if (e) e.preventDefault(); this.setState({ slug: null, postSlug: null, cv: false }); history.replaceState(null, "", "#"); window.scrollTo(0, 0); }
+      goHome: (e) => { if (e) e.preventDefault(); this.setState({ slug: null, postSlug: null, cv: false }); history.replaceState(null, "", "#"); window.scrollTo(0, 0); },
+      imageOpen: this.state.imageOpen,
+      openImage: (e) => this.openImage(e),
+      closeImage: (e) => this.closeImage(e),
+      stopClick: (e) => { if (e) e.stopPropagation(); }
     };
   }
 }
