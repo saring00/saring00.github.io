@@ -20,6 +20,13 @@
   ::selection { background: #1e3a5f; color: #e6e9ec; }
   @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
 
+  .ov-col2 { grid-column: 2; max-width: 62ch; }
+  .ov-full { grid-column: 1 / -1; }
+
+  .tcell { color: #b4bbc2; }
+  .tcell-accent { color: #60a5fa; }
+  .tcell-highlight { background: rgba(217, 119, 6, 0.18); }
+
   @media (max-width: 720px) {
     .main-wrap { padding-left: 20px !important; padding-right: 20px !important; padding-bottom: 90px !important; }
     .hdr-row { padding: 14px 20px !important; gap: 14px !important; }
@@ -32,6 +39,7 @@
     .p-page { font-size: 15.5px !important; }
     .grid-side { grid-template-columns: 1fr !important; gap: 10px !important; }
     .grid-side > :first-child { padding-top: 0 !important; margin-bottom: 2px !important; }
+    .ov-col2 { grid-column: 1 !important; max-width: 100% !important; }
   }
 
   @media (max-width: 480px) {
@@ -88,7 +96,7 @@
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Now</div>
       <div style="display: flex; flex-direction: column; gap: 14px; max-width: 62ch;">
         <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">01</span><span style="color: #b4bbc2;"><b>Project:</b> Redesigning my thesis, 3 years later and into the agentic age.</span></div>
-        <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">02</span><span style="color: #b4bbc2;"><b>Project:</b> Creating an AI-enabled Threat Modeling tool.</span></div>
+        <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">02</span><span style="color: #b4bbc2;"><b>Commentary:</b> Converging evolution of the Big AI Houses.</span></div>
         <!-- <div style="display: flex; gap: 14px;"><span style="color: #4b535b;">03</span><span style="color: #b4bbc2;">Rebuilding my home lab segmentation — VLANs, a hardened DNS path, full flow logging.</span></div> -->
       </div>
     </section>
@@ -96,10 +104,9 @@
 
     <section id="projects" class="sec-pad-lg" style="padding: 82px 0 62px; border-bottom: 1px solid #191d21;">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 42px;">
-        <h2 style="margin: 0; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Projects coming soon</h2>
-        <!-- <span style="font-size: 12.5px; color: #5b636b;">{{ projectCount }} shipped · click for detail</span> -->
+        <h2 style="margin: 0; font-size: 12px; font-weight: 400; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase;">Projects</h2>
       </div>
-      <!-- <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px;">
         <sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
           <a href="#project" onClick="{{ p.open }}" style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border: 1px solid #191d21; border-radius: 4px; background: #0d1013; color: inherit; transition: border-color 140ms ease, background 140ms ease;" style-hover="{&quot;borderColor&quot;:&quot;#2b3f55&quot;,&quot;background&quot;:&quot;#0f1418&quot;}">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
@@ -114,7 +121,7 @@
             </div>
           </a>
         </sc-for>
-      </div> -->
+      </div>
     </section>
 
     <sc-if value="{{ showWriting }}" hint-placeholder-val="{{ true }}">
@@ -175,13 +182,42 @@
         </sc-for>
       </div>
     </header>
-    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
+    <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; column-gap: 40px; row-gap: 20px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Overview</div>
-      <div style="max-width: 62ch; display: flex; flex-direction: column; gap: 20px;">
-        <sc-for list="{{ current.body }}" as="para" hint-placeholder-count="3">
-          <p style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">{{ para }}</p>
-        </sc-for>
-      </div>
+      <sc-for list="{{ current.body }}" as="block" hint-placeholder-count="3">
+        <sc-if value="{{ block.isHeading }}">
+        <h3 class="ov-col2" style="margin: 10px 0 0; font-size: 16px; font-weight: 600; color: #e6e9ec; letter-spacing: -0.01em;">{{ block.text }}</h3>
+        </sc-if>
+        <sc-if value="{{ block.isText }}">
+        <p class="ov-col2" style="margin: 0; font-size: 15.5px; line-height: 1.78; color: #b4bbc2; text-wrap: pretty;">{{ block.text }}</p>
+        </sc-if>
+        <sc-if value="{{ block.isImage }}">
+        <div class="ov-full" style="text-align: center;">
+          <div onClick="{{ block.open }}" style="cursor: zoom-in; display: block;" style-hover="{&quot;opacity&quot;:&quot;0.9&quot;}">
+            <img src="{{ block.src }}" alt="{{ block.alt }}" style="display: block; margin: 0 auto; max-width: 100%; height: auto; border: 1px solid #191d21; border-radius: 4px;" />
+          </div>
+          <div style="margin-top: 8px; font-size: 11.5px; color: #5b636b;">Click image to enlarge</div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ block.isTable }}">
+        <div class="ov-full" style="overflow-x: auto; border: 1px solid #191d21; border-radius: 4px;">
+          <div style="display: table; width: 100%; font-size: 13px;">
+            <div style="display: table-row;">
+              <sc-for list="{{ block.header }}" as="h" hint-placeholder-count="4">
+                <div style="display: table-cell; padding: 10px 14px; border: 1px solid #191d21; background: #142040; color: #e6e9ec; font-weight: 600; text-align: left; white-space: nowrap;">{{ h }}</div>
+              </sc-for>
+            </div>
+            <sc-for list="{{ block.rows }}" as="row" hint-placeholder-count="3">
+              <div style="display: table-row;">
+                <sc-for list="{{ row }}" as="cell" hint-placeholder-count="4">
+                  <div class="{{ cell.cls }}" style="display: table-cell; padding: 10px 14px; border: 1px solid #191d21;">{{ cell.text }}</div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+      </sc-for>
     </section>
     <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">What it found</div>
@@ -194,12 +230,14 @@
         </sc-for>
       </div>
     </section>
+    <sc-if value="{{ current.repo }}">
     <section class="grid-side" style="padding: 56px 0 0; display: grid; grid-template-columns: 150px 1fr; gap: 40px;">
       <div style="font-size: 12px; color: #60a5fa; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 4px;">Repo</div>
       <div>
         <a href="https://github.com" style="display: inline-flex; gap: 10px; padding: 12px 18px; border: 1px solid #24292e; border-radius: 4px; font-size: 13.5px; color: #dfe3e7;" style-hover="{&quot;borderColor&quot;:&quot;#2b3f55&quot;}"><span style="color: #60a5fa;">git clone</span>{{ current.repo }}</a>
       </div>
     </section>
+    </sc-if>
     <div style="padding: 72px 0 0; border-top: 1px solid #191d21; margin-top: 72px;">
       <a href="#top" onClick="{{ goHome }}" style="font-size: 13.5px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← back to all projects</a>
     </div>
@@ -217,17 +255,10 @@
     </header>
     <sc-if value="{{ currentPost.image }}">
     <div style="padding: 56px 0 0;">
-      <div onClick="{{ openImage }}" style="cursor: zoom-in; display: block;" style-hover="{&quot;opacity&quot;:&quot;0.9&quot;}">
+      <div onClick="{{ currentPost.openImage }}" style="cursor: zoom-in; display: block;" style-hover="{&quot;opacity&quot;:&quot;0.9&quot;}">
         <img src="{{ currentPost.image }}" alt="{{ currentPost.imageAlt }}" style="display: block; max-width: 100%; height: auto; border: 1px solid #191d21; border-radius: 4px;" />
       </div>
       <div style="margin-top: 10px; font-size: 11.5px; color: #5b636b;">Click image to enlarge</div>
-    </div>
-    </sc-if>
-    <sc-if value="{{ imageOpen }}">
-    <div onClick="{{ closeImage }}" style="position: fixed; inset: 0; z-index: 100; background: rgba(6,7,9,0.94); display: flex; align-items: center; justify-content: center; padding: 32px; cursor: zoom-out;">
-      <img src="{{ currentPost.image }}" alt="{{ currentPost.imageAlt }}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,0.55);" />
-      <a href="{{ currentPost.image }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="position: fixed; top: 26px; right: 76px; padding: 9px 16px; border: 1px solid #2b3238; border-radius: 999px; background: rgba(13,16,19,0.9); color: #9aa2ab; font-size: 12.5px;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#e6e9ec&quot;}">Open full image ↗</a>
-      <button onClick="{{ closeImage }}" style="position: fixed; top: 22px; right: 26px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid #2b3238; background: rgba(13,16,19,0.9); color: #dfe3e7; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#f0f2f4&quot;}">×</button>
     </div>
     </sc-if>
     <section style="padding: 56px 0 0;">
@@ -301,6 +332,14 @@
       <a href="#top" onClick="{{ goHome }}" style="font-size: 13.5px; color: #7b838c;" style-hover="{&quot;color&quot;:&quot;#e6e9ec&quot;}">← back home</a>
     </div>
   </main>
+  </sc-if>
+
+  <sc-if value="{{ lightboxSrc }}">
+  <div onClick="{{ closeLightbox }}" style="position: fixed; inset: 0; z-index: 100; background: rgba(6,7,9,0.94); display: flex; align-items: center; justify-content: center; padding: 32px; cursor: zoom-out;">
+    <img src="{{ lightboxSrc }}" alt="{{ lightboxAlt }}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,0.55);" />
+    <a href="{{ lightboxSrc }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="position: fixed; top: 26px; right: 76px; padding: 9px 16px; border: 1px solid #2b3238; border-radius: 999px; background: rgba(13,16,19,0.9); color: #9aa2ab; font-size: 12.5px;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#e6e9ec&quot;}">Open full image ↗</a>
+    <button onClick="{{ closeLightbox }}" style="position: fixed; top: 22px; right: 26px; width: 38px; height: 38px; border-radius: 999px; border: 1px solid #2b3238; background: rgba(13,16,19,0.9); color: #dfe3e7; font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit;" style-hover="{&quot;borderColor&quot;:&quot;#3a4249&quot;,&quot;color&quot;:&quot;#f0f2f4&quot;}">×</button>
+  </div>
   </sc-if>
 
   <footer style="border-top: 1px solid #191d21;">
@@ -397,6 +436,63 @@ const PROJECTS = [
       "Full flow logging on the whole lab cost less storage than one week of endpoint logs.",
       "Half the value was naming things consistently."
     ]
+  },
+  {
+    slug: "claude-privacy-audit", name: "Claude Privacy Audit", year: "2026", kind: "Privacy research", featured: true,
+    blurb: "Replicating and extending an academic privacy study to see exactly what cookies and tracking data Claude sends under different consent settings.",
+    tags: ["privacy", "cookies", "tracking analysis"],
+    body: [
+      { type: "text", text: "Since GamingNexus’ video exposé about LG’s spying smart TVs, I have been significantly more concerned around the privacy of the things we use every day. Prior to the video, I had the thinking of ‘I don’t want to know’ but after seeing how bad it actually is, my cyber paranoia has been keeping me up at night. I originally started to do a project testing GamingNexus’ approach on my smart projector; however, my WIFI adapter isn’t equipped for the encryption being used – at least that is an improvement from LG’s plain text connections. So, while I wait for Black Friday deals on better WIFI adapters, this project got put on the back burner. A couple of weeks later I stumbled across a paper titled “Prompt like a Butterfly, Sting like a Tracker: A Privacy Analysis of Web and Mobile Conversational AI Agents” during my AI news/research catch up and my cyber paranoia perked its ears." },
+      { type: "text", text: "The paper looks at 9 different conversational AI tools, namely, ChatGPT, Claude, Grok, DeepSeek, Perplexity, Gemini, Copilot, Mistral, and Meta AI. It looks at both the web and Android mobile services that these tools provide (where applicable) and measures the cookies and tracking information being sent when you query these tools. After reading this one thing is for certain, I’m very happy I don’t use Grok. I do, however, use Claude and the findings were worrying enough to warrant an investigation." },
+      { type: "text", text: "The paper used quite general prompts – “What are the symptoms of early-stage Parkinson’s disease?” and “My salary is $85k. How much mortgage can I afford in NYC?”. I decided to appeal to the ad side of things to catch any low hanging fruit and settled on the prompt “I'm looking to get a streaming service for tv shows and movies, compare the pros and cons of each streaming service, including prices, offerings etc.”. I then tested this prompt with the Pro Plan using three different settings. A – Cookie preferences not captured, training and location data on by default; B – Cookies rejected, training and location data turned off; and C – Cookies accepted, training and location data accepted. Additionally, I used both Chrome’s Web Developer Tools and Net Export for the capture of this traffic." },
+      {
+        type: "table",
+        header: ["Config", "Chrome third-party cookies", "Claude cookie consent", "Location / training"],
+        rows: [
+          ["A", "Allowed", "Regional default", "On / On"],
+          ["B", "Allowed", "Rejected", "Off / Off"],
+          ["C", "Allowed", "Accepted all", "On / On"]
+        ]
+      },
+      { type: "heading", text: "Default Cookie Settings" },
+      { type: "text", text: "Claude’s cookie settings were the first to catch my attention. While I was planning this project, I thought I’d just compare rejected vs accepted cookies, assuming I would have rejected the cookies when I signed up for Claude Pro some 5 months ago. But then as I was looking for the cookie policy, it was nowhere to be found (at least not easily). Searching for ways to enable/disable Claude’s cookies also turned up empty, as any reference to cookies were actually discussing the platform’s privacy settings. I eventually found them after clicking every button on Claude’s web UI, under Learn More > Your privacy choices, only to discover I had never actually set preferences, which backed up some initial testing I had done that suggested I hadn’t selected an option." },
+      { type: "text", text: "This might be nit picking, but I think it’s very misleading to have your cookie preferences hidden away with Claude Academy and links to ‘About Anthropic’. Now I can’t say for sure what I did 5 months ago when signing up for Claude Pro, maybe I clicked off the cookie settings accidentally and never chose an option, maybe I was in a rush and ignored it. But what I will say is that the cookie preferences are too buried for my liking and if this caught a security analyst, I could imagine it has caught a lot more non-technical individuals. Under South African POPIA law, cookie preference options must be transparent and hiding these options violates the freely given premise of data consent. I can’t allege anything because of not noticing this until now, but I thought it was interesting to note especially when you look further into the default cookies." },
+      { type: "text", text: "What initially signaled that I hadn’t selected a cookie preference where some initial tests I ran that contained the flag implicit_regional_default. After some digging, I found that this was a fallback for when a user hadn’t selected cookie preferences – it used the default settings according to the user’s location. As my location is set as South Africa, it’s concerning that cookie preferences weren’t switched to auto decline because under POPIA, no consent means no tracking. I know these companies obviously want to track their users, whether for actual analytics or more sinister reasons, and I’m obviously no lawyer so I can’t say for sure whether this violates POPIA or whether there’s a workaround they’re using. But to have the ability to apply regional defaults according to a country’s laws and to not use them, I find that negligent and alarming." },
+      { type: "image", src: "./images/implicit.png", alt: "Screenshot of the implicit_regional_default cookie flag" },
+      { type: "heading", text: "Cookie Setting Comparison" },
+      { type: "text", text: "Anyways, back to the topic at hand. To test each setting, I would change the setting after capturing the previous setting’s processing, log out, clear my browser’s cache and then relogin. The idea was to capture cookie and tracking activity during login, the creation of a new workspace, and the query’s capture and processing. To compare, I used the Share column in the table below, which shows the % of cookies shared to 3rd parties, rather than the total count to account for differences in the time being captured." },
+      { type: "text", text: "Settings A (default) and C (accepted) acted the same, with the same cookies being passed in almost identical amounts both before and after login. This is not surprising as the regional default settings (A) is most likely a copy of the settings applied in C." },
+      { type: "text", text: "Setting D (rejected) showed changes in the amount of tracking information, however there were still 3rd party cookies being sent. From this testing, we can see that the preferences applied to marketing/ad cookies only and that the cookie preferences are applied ~1 second after a successful login, after which the cookie was removed. However, until that point, marketing cookies were being sent to Meta (_fbp) and Segment (ajs_anonymous_id). Other analytics cookies are sent regardless of cookie preference to Sift (__ssid), Datadog (_dd_s_v2), Google (g_state), and Cloudflare (cf_clearance, __cf_bm, _cfuid). Another interesting observation was seen with the NID cookie used by Google. For settings A and C, NID was used with a Google sign-in script and to load the page’s favicon, whereas setting D just loaded the favicon. So, you could risk linking your Google account with your Claude account without ever knowing." },
+      {
+        type: "table",
+        header: ["Cookie", "Vendor", "A carried", "A share", "B carried", "B share", "C carried", "C share"],
+        rows: [
+          ["_fbp", "Meta Pixel format", { text: "103", color: "#60a5fa" }, "100%", { text: "29", color: "#60a5fa", bg: "rgba(217,119,6,0.18)" }, { text: "37%", bg: "rgba(217,119,6,0.18)" }, { text: "91", color: "#60a5fa" }, "100%"],
+          ["ajs_anonymous_id", "Segment", { text: "103", color: "#60a5fa" }, "100%", { text: "29", color: "#60a5fa", bg: "rgba(217,119,6,0.18)" }, { text: "37%", bg: "rgba(217,119,6,0.18)" }, { text: "91", color: "#60a5fa" }, "100%"],
+          ["__ssid", "Sift", { text: "103", color: "#60a5fa" }, "100%", { text: "78", color: "#60a5fa" }, "100%", { text: "91", color: "#60a5fa" }, "100%"],
+          ["_dd_s_v2", "Datadog", { text: "101", color: "#60a5fa" }, "98%", { text: "77", color: "#60a5fa" }, "99%", { text: "90", color: "#60a5fa" }, "99%"],
+          ["g_state", "Google Sign-In", { text: "101", color: "#60a5fa" }, "98%", { text: "77", color: "#60a5fa" }, "99%", { text: "90", color: "#60a5fa" }, "99%"],
+          ["cf_clearance, __cf_bm, _cfuid", "Cloudflare", { text: "103", color: "#60a5fa" }, "100%", { text: "78", color: "#60a5fa" }, "100%", { text: "91", color: "#60a5fa" }, "100%"]
+        ]
+      },
+      { type: "heading", text: "Prompt like a Butterfly, Sting like a Tracker Discussion" },
+      { type: "text", text: "The original paper was released by a team from IMDEA Networks, a non-profit research foundation in Madrid, Spain. My testing confirmed their results for the Claude web application, with 3rd party cookies being sent to Google, Datadog, and Meta. I also found additional 3rd parties, namely Segment, Cloudflare and Sift. However, I didn’t see evidence of information being sent to Sentry, and information was captured for but not sent to Intercom. Sift, Google, Datadog and Cloudflare stayed persistent across the settings tested, however these are referenced for security and performance analytics. Whereas the Meta and Segment cookies referenced above are seen where settings allow for 3rd party cookie capture." },
+      { type: "text", text: "When looking through the Meta Pixel, we can see the variable ATM_PIXEL_ID_ALLOWLIST. This captures cookies for Meta, Google Ads, Google Floodlight and Google Floodlight Sales (Google Digital Marketing), Reddit, Tiktok, Bing UET (Microsoft Advertising), Linkedin and Hubspot (Web Marking Platform). These cookies were set prior to login, but in the case of B, these cookies were removed after login. However, opting out of cookies still left the identifier Segment ID after cookie removal. The fields for Reddit, Tiktok, Bing, and Linkedin were left blank, while there is nothing to say why, the most likely reason is that they haven’t been implemented yet but are saved as placeholders until the deployment. Another thought I had would be that these could be dependent on the regional default option for cookie preferences, perhaps changing 3rd party vendors per region." },
+      { type: "image", src: "./images/pixel-allowlist.png", alt: "Meta Pixel ATM_PIXEL_ID_ALLOWLIST variable contents" },
+      { type: "text", text: "After some further digging, I found the below endpoints stored in isolated-segment.html. This isolates the Segment ID and pixels (ad cookies) to their own frame and allows for better privacy and security when Claude runs the marketing and analytics code. This file essentially acts as an allow-list for where data can be sent but confirms the 3rd parties that are receiving analytics and/or marketing data." },
+      { type: "image", src: "./images/endpoints.png", alt: "Endpoints listed in isolated-segment.html" },
+      { type: "text", text: "Rather than cookies, Claude issued the session with two Intercom identity tokens regardless of the setting being tested. The one token is a unique hash that identifies your account to Intercom. The second is a JSON Web Token split into a header, payload, and signature. If you decode the payload using base64 processing, you can see that your Claude company ID, user ID, and email is all issued in this token. Claude’s security policy references Intercom as one of the domains the page can load and my Chrome history shows evidence of connecting to Intercom, however I wasn’t able to capture evidence of that in any of the sessions." },
+      { type: "image", src: "./images/intercom.png", alt: "Decoded Intercom identity token payload" },
+      { type: "heading", text: "Conclusion" },
+      { type: "text", text: "To end off, my testing mostly confirmed the original paper’s findings and showed that rejecting cookies does reduce some marketing tracking, but it does not stop Claude from sharing information with third parties altogether. Some of these connections appear to support legitimate security and performance functions, but the hidden cookie controls, delayed application of preferences, persistent identifiers, and identity data contained in the Intercom tokens still leave me uncomfortable. I’m not saying Claude is secretly selling every prompt to advertisers, but the amount of background tracking happening around a simple query is enough to justify paying closer attention to the privacy settings we usually click past." },
+      { type: "text", text: "Thanks for reading! If you need me, I’ll be figuring out how to run local models :)" }
+    ],
+    findings: [
+      "Cookie preferences had silently fallen back to implicit_regional_default — no explicit choice had ever been recorded, despite being signed in for 5 months.",
+      "Rejecting cookies stops marketing identifiers (Meta _fbp, Segment ajs_anonymous_id) but not the __ssid, _dd_s_v2, g_state, or Cloudflare cookies, which persist across every setting.",
+      "The Meta Pixel allow-list (ATM_PIXEL_ID_ALLOWLIST) carries blank placeholder entries for Reddit, TikTok, Bing, and LinkedIn — not active yet, but reserved.",
+      "Two Intercom identity tokens, including a JWT with company ID, user ID, and email, are issued every session regardless of the cookie setting chosen."
+    ]
   }
 ];
 
@@ -434,12 +530,12 @@ const POSTS = [
 
 const CV = {
   name: "Sarah Ingram",
-  summary: "Cyber security professional focusing on AI Security and AI enablement to protect against malicious AI and malicious use of sanctioned AI within both financial and health organisational contexts.",
+  summary: "Cyber security professional focusing on AI Security and AI enablement within a multidisciplinary cyber context.",
   experience: [
     {
       role: "Information Security Analyst (Associate Specialist)", company: "Discovery", period: "Jul 2026 — Present",
       bullets: [
-        "Developing AI-enabled in-house systems to identify vulnerabilities and enhance cyber service offerings.",
+        "Focusing on AI security and AI enablement to protect against malicious AI and malicious use of sanctioned AI within both financial and health organisational contexts.",
         "Identifying and developing AI use cases within the cyber security field to assist with the protection against both AI and human threats.",
         "Developing cyber security AI strategy in alignment with the protection of both financial and health data"
       ]
@@ -479,7 +575,7 @@ const CV = {
 };
 
 class Component extends DCLogic {
-  state = { slug: null, postSlug: null, cv: false, imageOpen: false };
+  state = { slug: null, postSlug: null, cv: false, lightboxSrc: null, lightboxAlt: "" };
 
   componentDidMount() {
     this._sync = () => {
@@ -493,7 +589,7 @@ class Component extends DCLogic {
     window.addEventListener("hashchange", this._sync);
 
     this._onKeydown = (e) => {
-      if (e.key === "Escape" && this.state.imageOpen) this.setState({ imageOpen: false });
+      if (e.key === "Escape" && this.state.lightboxSrc) this.setState({ lightboxSrc: null, lightboxAlt: "" });
     };
     window.addEventListener("keydown", this._onKeydown);
   }
@@ -528,29 +624,55 @@ class Component extends DCLogic {
     window.scrollTo(0, 0);
   }
 
-  openImage(e) {
-    if (e) e.preventDefault();
-    this.setState({ imageOpen: true });
+  openLightbox(src, alt) {
+    return (e) => {
+      if (e) e.preventDefault();
+      this.setState({ lightboxSrc: src, lightboxAlt: alt || "" });
+    };
   }
 
-  closeImage(e) {
+  closeLightbox(e) {
     if (e) e.preventDefault();
-    this.setState({ imageOpen: false });
+    this.setState({ lightboxSrc: null, lightboxAlt: "" });
+  }
+
+  normalizeBlock(block) {
+    if (typeof block === "string") return { isText: true, text: block };
+    if (block.type === "image") return { isImage: true, src: block.src, alt: block.alt, open: this.openLightbox(block.src, block.alt) };
+    if (block.type === "table") {
+      return {
+        isTable: true,
+        header: block.header,
+        rows: (block.rows || []).map(row => row.map(cell => {
+          if (cell && typeof cell === "object") {
+            let cls = "tcell";
+            if (cell.color === "#60a5fa") cls += " tcell-accent";
+            if (cell.bg && cell.bg !== "transparent") cls += " tcell-highlight";
+            return { text: cell.text, cls };
+          }
+          return { text: cell, cls: "tcell" };
+        }))
+      };
+    }
+    if (block.type === "heading") return { isHeading: true, text: block.text };
+    return { isText: true, text: String(block.text ?? block) };
   }
 
   renderVals() {
     const current = PROJECTS.find(p => p.slug === this.state.slug) || null;
     const currentPost = POSTS.find(p => p.slug === this.state.postSlug) || null;
     const cvOpen = !current && !currentPost && this.state.cv;
+    const currentForView = current || PROJECTS[0];
+    const currentPostForView = currentPost || POSTS[0];
     return {
       isHome: !current && !currentPost && !cvOpen,
       isProject: !!current,
       isPost: !!currentPost,
       isCV: cvOpen,
-      current: current || PROJECTS[0],
-      currentPost: currentPost || POSTS[0],
+      current: Object.assign({}, currentForView, { body: (currentForView.body || []).map(b => this.normalizeBlock(b)) }),
+      currentPost: Object.assign({}, currentPostForView, { openImage: this.openLightbox(currentPostForView.image, currentPostForView.imageAlt) }),
       cv: CV,
-      projects: PROJECTS.map(p => Object.assign({}, p, { open: this.open(p.slug) })),
+      projects: PROJECTS.filter(p => p.featured).map(p => Object.assign({}, p, { open: this.open(p.slug) })),
       projectCount: PROJECTS.length,
       posts: POSTS.map(p => Object.assign({}, p, { open: this.openPost(p.slug) })),
       showWriting: this.props.showWriting ?? true,
@@ -558,9 +680,9 @@ class Component extends DCLogic {
       showHireable: this.props.showHireable ?? true,
       goToCV: (e) => this.goToCV(e),
       goHome: (e) => { if (e) e.preventDefault(); this.setState({ slug: null, postSlug: null, cv: false }); history.replaceState(null, "", "#"); window.scrollTo(0, 0); },
-      imageOpen: this.state.imageOpen,
-      openImage: (e) => this.openImage(e),
-      closeImage: (e) => this.closeImage(e),
+      lightboxSrc: this.state.lightboxSrc,
+      lightboxAlt: this.state.lightboxAlt,
+      closeLightbox: (e) => this.closeLightbox(e),
       stopClick: (e) => { if (e) e.stopPropagation(); }
     };
   }
